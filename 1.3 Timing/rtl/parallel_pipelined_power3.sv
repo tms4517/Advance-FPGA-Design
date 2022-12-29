@@ -14,8 +14,8 @@ module power3
   logic [7:0] xPower2;
 
   // Partial product registers.
-  logic [3:0] xPower2_ppAA_q, xPower2_ppAB_q, xPower2_ppBB_q;
-  logic [3:0] xPower3_ppAA_q, xPower3_ppAB_q, xPower3_ppBB_q;
+  logic [7:0] xPower2_ppAA_q, xPower2_ppAB_q, xPower2_ppBB_q;
+  logic [7:0] xPower3_ppAA_q, xPower3_ppAB_q, xPower3_ppBB_q;
 
   // Nibbles for partial products (A is MS nibble, B is LS nibble).
   logic [3:0] xPower1_A, xPower1_B;
