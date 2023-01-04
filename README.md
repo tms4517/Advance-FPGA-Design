@@ -7,3 +7,5 @@ Each subdirectory contains 3 folders, which consist of the following:
 - rtl: Contains System Verilog RTL files.
 - tb: Contains basic System Verilog test benches of the RTL.
 - doc: Contains PDFs which provide a brief explanation of the synthesized design (using Yosys) and relevant information from the Chapter.
+
+Note: If a tb is not provided for a module, it probably contains errors.
