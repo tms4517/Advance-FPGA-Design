@@ -14,6 +14,7 @@ logic dat_q;
 
 assign o_dat = dat_q;
 
+// Implements the logic function: o_Dat = !i_dat3 & (i_dat1 || i_dat2)
 always_ff @(posedge i_clk)
   if (i_dat3)
     dat_q <= '0;
