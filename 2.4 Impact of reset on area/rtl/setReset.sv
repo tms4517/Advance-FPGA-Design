@@ -10,14 +10,15 @@ module setReset
   , output var logic o_dat
   );
 
-logic dat_q;
+  logic dat_q;
 
-assign o_dat = dat_q;
+  assign o_dat = dat_q;
 
-always_ff @(posedge i_clk, posedge i_arst)
-  if (i_arst)
-    dat_q <= '0;
-  else
-   dat_q <=  i_dat1 || i_dat2;
+  always_ff @(posedge i_clk or negedge i_arst)
+    if (!i_arst)
+      dat_q <= '0;
+    else
+      dat_q <=  i_dat1 || i_dat2;
+
 
 endmodule
