@@ -20,5 +20,13 @@ module setReset
     else
       dat_q <=  i_dat1 || i_dat2;
 
+// If an arst is not required, synthesis tools can choose a FF with a synchronous
+// set to implement the same function with no logic elements as shown below.
+
+// always_ff @(posedge i_clk)
+//   if (i_dat1)
+//     dat_q <= '1;
+//   else
+//     dat_q <= i_dat2;
 
 endmodule
