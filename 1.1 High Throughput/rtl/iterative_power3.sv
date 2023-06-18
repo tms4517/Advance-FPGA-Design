@@ -1,7 +1,8 @@
 `default_nettype none
 
-module power3
+module iterative_power3
   ( input  var logic i_clk
+  , input  var logic i_rst
 
   , input  var logic [7:0] i_x
   , input  var logic       i_start
@@ -21,17 +22,19 @@ module power3
   assign o_xPower = xPower_q;
 
   always_ff @(posedge i_clk)
-    if (i_start)
-      nCount_q <= 2'd2;
+    if (i_rst)
+      nCount_q <= '0;
+    else if (i_start)
+      nCount_q <= 2'h2;
     else
       nCount_q <= !finished ? nCount_q-1 : nCount_q;
 
   always_ff @(posedge i_clk)
-    if (i_start)
+    if (i_rst)
+      xPower_q <= '0;
+    else if (i_start)
       xPower_q <= i_x;
     else
       xPower_q <= !finished ? xPower_q*i_x : xPower_q;
 
 endmodule
-
-
