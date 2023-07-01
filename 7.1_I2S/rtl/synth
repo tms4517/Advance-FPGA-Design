@@ -1,0 +1,26 @@
+#load modules from a Verilog file to the current design.
+read_verilog -sv I2S.sv
+
+# Replaces the processes in the design with multiplexers, flip-flops and latches.
+proc;;
+
+# Performs a series of optimizations and cleanups.
+opt;;
+
+# Remove unused cells and wires, equivalent to ;; .
+clean
+
+# A shortcut for 'select -module <modname>'.
+cd I2S
+
+# Modify the selected object. Delete the clk signal as it can clutter a schematic.
+select -del i_sck
+
+# Create a graphviz DOT file for the selected part of the design and compile it
+# to a graphics file (svg).
+# format: Generate a graphics file in the specified format.
+# width: Annotate buses with a label indicating the width of the bus.
+# stretch: Stretch the graph so all inputs are on the left side and all outputs
+#          (including inout ports) are on the right side.
+# prefix: generate <prefix>.*
+show -stretch -width -format svg -prefix circuit
