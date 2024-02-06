@@ -1,5 +1,5 @@
 // This module implements hardware division
-// (quotient = dividend/divisor + remainder) using an iterative method.
+// (quotient = dividend/divisor and remainder) using an iterative method.
 
 `default_nettype none
 
@@ -35,13 +35,18 @@ module iterativeDivision
   always_comb
     if (i_start)
       doProcess_d = '1;
-    else if (counter_q == 6'd32)
+    else if (counter_q == 6'd31)
       doProcess_d = '0;
     else
       doProcess_d = doProcess_q;
 
+  logic finalShift;
+
+  always_ff @(posedge i_clk)
+    finalShift <= doProcess_q;
+
   always_comb
-    if (counter_q == 6'd32)
+    if (counter_q == 6'd33)
       o_finish = '1;
     else
       o_finish = '0;
@@ -91,6 +96,7 @@ module iterativeDivision
   // }}} ALU
 
   // {{{ Shift Quotient
+  // NOTE: The quotient has to be shifted left at the end of the process.
   logic [DATA_W-1:0] quotient_d, quotient_q;
 
   always_ff @(posedge i_clk)
@@ -100,9 +106,9 @@ module iterativeDivision
       quotient_q <= quotient_d;
 
   always_comb
-    if (doProcess_q && shiftIn)
+    if ((doProcess_q || finalShift) && shiftIn)
       quotient_d = {quotient_q[DATA_W-2:0], 1'b1};
-    else if (doProcess_q && !shiftIn)
+    else if ((doProcess_q || finalShift) && !shiftIn)
       quotient_d = quotient_q << 1;
     else
       quotient_d = quotient_q;
