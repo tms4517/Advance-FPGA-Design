@@ -1,0 +1,16 @@
+[tasks]
+basic bmc
+
+[options]
+bmc:
+mode bmc
+
+[engines]
+smtbmc boolector
+
+[script]
+read -formal iterativeDivision.sv
+prep -top iterativeDivision
+
+[files]
+../rtl/iterativeDivision.sv
