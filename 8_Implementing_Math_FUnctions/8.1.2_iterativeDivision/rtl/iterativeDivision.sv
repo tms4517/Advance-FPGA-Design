@@ -29,6 +29,8 @@ module iterativeDivision
 
   logic doProcess_d, doProcess_q;
 
+  // Commence division process 1 clk cycle after start is asserted and the
+  // inputs have been sampled.
   always_ff @(posedge i_clk)
     doProcess_q <= doProcess_d;
 
@@ -40,6 +42,7 @@ module iterativeDivision
     else
       doProcess_d = doProcess_q;
 
+  // Additional clock cycle required for final quotient shift.
   logic finalShift;
 
   always_ff @(posedge i_clk)
